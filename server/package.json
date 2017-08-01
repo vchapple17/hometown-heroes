@@ -1,7 +1,7 @@
 {
-  "name": "CS361FBSpike",
+  "name": "hometown-heroes",
   "version": "1.0.0",
-  "description": "a web app spike for FB login",
+  "description": "a web app for hometown-heroes",
   "main": "ServerCode.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

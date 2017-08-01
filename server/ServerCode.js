@@ -2,7 +2,7 @@
 *Gregory Niebanck
 *4/20/2017
 *CS361 SUMMER 2017
-*Description:	Spike for using FB login
+*Description:
 *************************************************************/
 //setup for express / handlebars / sessions/ mysql
 var express = require('express');
@@ -30,7 +30,7 @@ var pool = mysql.createPool({
 });*/
 //****************************************************
 
-	
+
 
 
 
@@ -70,7 +70,7 @@ app.get('/fail',function(req,res) // route for table interactions
 	res.render('fail');
 });
 
-app.post('/echo', function(req,res,next) 
+app.post('/echo', function(req,res,next)
 {
 	var data_object = req.body.data;
 	console.log(data_object);
@@ -82,7 +82,7 @@ app.get('/login/FB/callback',
 	passport.authenticate('facebook',{
 		successRedirect: '/success',
 		failureRedirect: '/fail' }));
-					
+
 
 
 
@@ -101,4 +101,3 @@ app.get('/login/FB/callback',
     console.log('Express started on port: ' + app.get('port') + '; press Ctrl-C to terminate.');
   });
   //*******************************************************
-  
