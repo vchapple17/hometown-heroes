@@ -8,7 +8,7 @@
 var express = require('express');
 var request = require('request');
 var passport = require('passport');
-var Strategy = require('passport-facebook').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 var bodyParser = require('body-parser');
@@ -41,7 +41,6 @@ app.use(express.static('public'));
 var configAuth = require('./config/auth.js');
 //***********************************************************
 
-/*
 passport.use(new FacebookStrategy({
 	clientID: configAuth.facebookAuth.clientID,
 	clientSecret: configAuth.facebookAuth.clientSecret,
@@ -54,8 +53,6 @@ passport.use(new FacebookStrategy({
 		});
 	}
 ));
-
-*/
 
 //*******************ROUTES***********************************
 app.get('/login',function(req,res)
