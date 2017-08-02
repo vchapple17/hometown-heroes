@@ -1,6 +1,6 @@
 /**********************************************************
 *Gregory Niebanck
-*4/20/2017
+*7/31/2017
 *CS361 SUMMER 2017
 *Description:
 *************************************************************/
@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', 16661);//<---------------Adjust port here
+
 //************* database access ********************
 var mysql = require('mysql');
 /*
@@ -57,15 +58,15 @@ passport.use(new FacebookStrategy({
 */
 
 //*******************ROUTES***********************************
-app.get('/login',function(req,res) // route for table interactions
+app.get('/login',function(req,res)
 {
 	res.render('login_screen');
 });
-app.get('/success',function(req,res) // route for table interactions
+app.get('/success',function(req,res)
 {
 	res.render('success', fail)
 });
-app.get('/fail',function(req,res) // route for table interactions
+app.get('/fail',function(req,res)
 {
 	res.render('fail');
 });
@@ -82,9 +83,6 @@ app.get('/login/FB/callback',
 	passport.authenticate('facebook',{
 		successRedirect: '/success',
 		failureRedirect: '/fail' }));
-
-
-
 
  //************Generic Error Handling*******************************************
   app.use(function(req,res){

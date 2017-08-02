@@ -4,6 +4,7 @@
   "description": "a web app for hometown-heroes",
   "main": "ServerCode.js",
   "scripts": {
+    "start": "node ServerCode.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "OSU",
@@ -14,6 +15,7 @@
     "express-handlebars": "^2.0.1",
     "express-session": "^1.11.3",
     "mysql": "^2.8.0",
+    "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "request": "2.79.0"
   }
