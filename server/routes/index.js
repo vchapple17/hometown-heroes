@@ -4,9 +4,8 @@ var express = require('express');
 var app = express.Router();
 
 // Routers from files
-var auth = require('./auth/index.');
+var auth = require('./auth/index');
 // var newSection = require('./folder/index.js') // add as we need
-
 
 // HOME PAGE
 app.route('/')
@@ -15,7 +14,18 @@ app.route('/')
     res.render('home');
   })
 
-app.use('/auth', auth);
+
+// Handles Email, Facebook and Twitter login
+app.use('/login', auth);
+
+
+//************ ECHO POST Information
+app.post('/echo', function(req,res,next)
+{
+	var data_object = req.body.data;
+	console.log(data_object);
+	res.send(data_object);
+});
 
 
 //************Generic Error Handling*******************************************
@@ -31,8 +41,5 @@ app.use(function(err, req, res, next) {
   res.render('500')
 })
 //*****************************************************************************
-
-
-
 
 module.exports = app;
