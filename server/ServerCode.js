@@ -7,17 +7,40 @@
 //setup for express / handlebars / sessions/ mysql
 var express = require('express');
 var request = require('request');
+var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var app = express();
-var handlebars = require('express-handlebars').create({defaultLayout:'main'});
-var bodyParser = require('body-parser');
+var TwitterStrategy = require('passport-twitter').Strategy;
+var session = require('express-session');	// Needed for Passport-Twitter OAuth1
+var cookieParser = require('cookie-parser'); // Required for sessions?
 
+var app = express();
+
+
+
+// bodyParser SETUP
+var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// PASSPORT SESSION SETUP (passportjs docs)
+app.use(cookieParser());
+app.use(session({
+  secret: 'HH-secret-key',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// VIEW ENGINE
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', 16661);//<---------------Adjust port here
+
+
+
 
 //************* database access ********************
 var mysql = require('mysql');
@@ -29,18 +52,25 @@ var pool = mysql.createPool({
   password       : '',
   database       : ''
 });*/
-//****************************************************
 
 
+// TEMP DB CALLBACK
+var User = require('./fakeDBquery');
 
+//***********************************************************
 
 
 //***********************************************************
 // server files and imported library functions
 app.use(express.static('public'));
 var configAuth = require('./config/auth.js');
-//***********************************************************
+// Hometown Heroes ROUTES
+var router = require('./routes/index');
 
+
+//***********************************************************
+// Configure Passport Strategies
+// From passportjs documentation
 passport.use(new FacebookStrategy({
 	clientID: configAuth.facebookAuth.clientID,
 	clientSecret: configAuth.facebookAuth.clientSecret,
@@ -54,34 +84,38 @@ passport.use(new FacebookStrategy({
 	}
 ));
 
-//*******************ROUTES***********************************
-app.get('/login',function(req,res)
-{
-	res.render('login_screen');
-});
-app.get('/success',function(req,res)
-{
-	res.render('success', fail)
-});
-app.get('/fail',function(req,res)
-{
-	res.render('fail');
+passport.use(new TwitterStrategy({
+	consumerKey: configAuth.twitterAuth.consumerKey,
+	consumerSecret: configAuth.twitterAuth.consumerSecret,
+	callbackURL: configAuth.twitterAuth.callbackURL
+	},
+	function(token, tokenSecret, profile, done) {
+    User.findOrCreate({twitterId: profile.id}, function(err, user) {
+      if (err) { return done(err); }
+      done(null, user);
+    });
+		// done(null, {user: "fakeName"});
+  }
+));
+
+// REFERENCE: https://github.com/mjhea0/passport-social-auth/blob/master/server/routes/index.js
+// NOTE: Code below can be linked to database query to get User
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
 });
 
-app.post('/echo', function(req,res,next)
-{
-	var data_object = req.body.data;
-	console.log(data_object);
-	res.send(data_object);
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
 });
 
-app.get('/login/FB', passport.authenticate('facebook'));
-app.get('/login/FB/callback',
-	passport.authenticate('facebook',{
-		successRedirect: '/success',
-		failureRedirect: '/fail' }));
+//***********************************************************
 
- //************Generic Error Handling*******************************************
+// Router
+app.use('/', router);
+
+ //************Generic Error Handling************************
   app.use(function(req,res){
     res.status(404);
     res.render('404');
@@ -93,6 +127,7 @@ app.get('/login/FB/callback',
     res.render('500');
   });
     app.listen(app.get('port'), function(){
-    console.log('Express started on port: ' + app.get('port') + '; press Ctrl-C to terminate.');
+    console.log('Express started on port: ' + app.get('port') +
+		'; press Ctrl-C to terminate.');
   });
-  //*******************************************************
+  //***********************************************************
