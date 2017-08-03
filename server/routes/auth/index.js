@@ -21,6 +21,8 @@ app.get('/facebook/callback',
   })
 );
 
+// TWITTER LOGIN PAGE & CALLBACK
+// https://github.com/passport/express-4.x-twitter-example
 app.get('/twitter', passport.authenticate('twitter'));
 app.get('/twitter/callback',
 	passport.authenticate('twitter',{
