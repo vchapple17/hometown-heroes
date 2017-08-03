@@ -30,11 +30,13 @@ function User() {
         facebookId: user_info.user_info,
         name: user_info.name
       })
+      console.log("Created");
+      cb(null, this.users[this.users.length - 1]);
     }
-    else {
-      console.log("ERROR");
-      cb("ERROR");
-    }
+    // else {
+    //   console.log("ERROR");
+    //   cb("ERROR");
+    // }
   }
 
 }

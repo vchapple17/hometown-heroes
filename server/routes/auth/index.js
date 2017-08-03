@@ -16,30 +16,30 @@ app.get('/',function(req,res)
 app.get('/facebook', passport.authenticate('facebook'));
 app.get('/facebook/callback',
 	passport.authenticate('facebook',{
-		successRedirect: '/success',
-		failureRedirect: '/fail'
+		successRedirect: '/login',
+		failureRedirect: '/'
   })
 );
 
 app.get('/twitter', passport.authenticate('twitter'));
 app.get('/twitter/callback',
 	passport.authenticate('twitter',{
-		successRedirect: '/login/success',
-		failureRedirect: '/login/fail'
+		failureRedirect: '/login',
+		successRedirect: '/'
   })
 );
 
-// SUCCESSFUL LOGIN
-app.get('/success',function(req,res)
-{
-	res.render('success')
-});
-
-// FAILED LOGIN
-app.get('/fail',function(req,res)
-{
-	res.render('fail');
-});
+// // SUCCESSFUL LOGIN
+// app.get('/success',function(req,res)
+// {
+// 	res.render('success')
+// });
+//
+// // FAILED LOGIN
+// app.get('/fail',function(req,res)
+// {
+// 	res.render('fail');
+// });
 
 
 

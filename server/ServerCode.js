@@ -23,17 +23,6 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// PASSPORT SESSION SETUP (passportjs docs)
-app.use(cookieParser());
-app.use(session({
-  secret: 'HH-secret-key',
-  resave: true,
-  saveUninitialized: true
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-
-
 // VIEW ENGINE
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -98,17 +87,28 @@ passport.use(new TwitterStrategy({
   }
 ));
 
-// REFERENCE: https://github.com/mjhea0/passport-social-auth/blob/master/server/routes/index.js
+// PASSPORT SESSION SETUP (passportjs docs)
 // NOTE: Code below can be linked to database query to get User
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+  done(null, user);
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
+  // User.findById(id, function(err, user) {
+  //   done(err, user);
+  // });
+  done(null, id);
 });
+
+app.use(cookieParser());
+app.use(session({
+  secret: 'HH-secret-key',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 //***********************************************************
 
