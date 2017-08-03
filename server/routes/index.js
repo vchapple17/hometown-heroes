@@ -10,8 +10,20 @@ var auth = require('./auth/index');
 // HOME PAGE
 app.route('/')
   .get(function(req, res) {
-    res.status(200);
-    res.render('home');
+    // console.log(req.session);
+    try {
+      var user = req.session.passport.user;
+      var context = {};
+      context.user = user;
+      res.status(200);
+      res.render('home', context);
+    }
+    catch (err) {
+      console.log("user not logged in.");
+      res.status(200);
+      res.render('homeGeneric');
+    }
+
   })
 
 

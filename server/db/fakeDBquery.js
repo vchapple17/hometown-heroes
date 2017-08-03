@@ -44,7 +44,6 @@ User.findById = function(user, cb) {
   else {
     cb("ERROR");
   }
-
 };
 
 
@@ -53,14 +52,11 @@ User.findOrCreate = function (user_info, cb) {
   console.log("findOrCreate: ", user_info);
 
   User.findById( user_info, function(err, validuser) {
-    console.log("findOrCreate callback");
     if (err === null) {
-      console.log("Valid User found");
       cb(null, validuser);
     }
     else {
       // If not found, create
-      console.log("User.users: ", User.users);
       User.users.push({
         twitterId: user_info.twitterId,
         facebookId: user_info.facebookId,

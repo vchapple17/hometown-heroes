@@ -1,1 +1,10 @@
-HOME PAGE
+<h1>HOME PAGE</h1>
+<div>
+  {{#if user.twitterId}}
+    <b>User Twitter Id:</b> {{user.twitterId}}<br />
+  {{/if}}
+  
+  {{#if user.facebookId}}
+    <b>User Facebook Id:</b> {{user.facebookId}}<br />
+  {{/if}}
+</div>
