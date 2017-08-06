@@ -5,6 +5,8 @@ var app = express.Router();
 
 // Routers from files
 var auth = require('./auth/index');
+var signup = require('./signup/index');
+
 // var newSection = require('./folder/index.js') // add as we need
 
 // HOME PAGE
@@ -29,6 +31,9 @@ app.route('/')
 
 // Handles Email, Facebook and Twitter login
 app.use('/login', auth);
+
+// Signup Method Selection Page 
+app.use('/signup', signup);
 
 
 //************ ECHO POST Information
