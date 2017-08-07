@@ -21,6 +21,8 @@ function send_data()
 	payload.username = username_input.value;
 	payload.password = password_input.value;
 	makePostReq(payload, flip2, showObject);
+
+    window.location.replace("email/success");
 }
 
 function validate()
