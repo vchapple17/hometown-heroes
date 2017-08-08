@@ -31,20 +31,6 @@ app.get('/twitter/callback',
   })
 );
 
-// // SUCCESSFUL LOGIN
-// app.get('/success',function(req,res)
-// {
-// 	res.render('success')
-// });
-//
-// // FAILED LOGIN
-// app.get('/fail',function(req,res)
-// {
-// 	res.render('fail');
-// });
-
-
-
 //************Generic Error Handling*******************************************
 app.use(function(req, res) {
   res.status(404);
