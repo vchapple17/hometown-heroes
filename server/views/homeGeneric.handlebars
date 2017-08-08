@@ -5,5 +5,18 @@ HOME PAGE Generic
     <input type="submit" value="" id="twitter-sign-in-button"/>
 </form>
 
-<br />
-<a href="/login/facebook">Sign in with Facebook</a>
+<button id="fbbutton" class="loginBtn loginBtn--facebook">
+  Login with Facebook
+</button>
+
+<script>
+var fbbutton = document.getElementById("fbbutton");
+function redirection()
+{
+        location.href="/login/facebook";
+
+}
+fbbutton.addEventListener("click",redirection);
+</script>
+
+
