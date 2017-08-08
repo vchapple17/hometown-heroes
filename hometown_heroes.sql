@@ -20,11 +20,11 @@ DROP TABLE IF EXISTS `hh_user`;
 
 CREATE TABLE `hh_user` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
+    `email` varchar(255) NOT NULL,
 	`password` varchar(255) NOT NULL,
 	`username` varchar(255) NOT NULL,
 	`lname` varchar(255) NOT NULL,
 	`fname` varchar(255) NOT NULL,
-    `email` varchar(255) NOT NULL,
 	`mobile` int(10) NOT NULL,
     `street` varchar(255) NOT NULL,
     `street_2` varchar(255),
@@ -38,7 +38,6 @@ CREATE TABLE `hh_user` (
 	PRIMARY KEY (`id`),
   	UNIQUE KEY `username` (`username`)
   ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
-
 
 --
 -- Table structure for table `hh_social_media`
@@ -74,7 +73,7 @@ CREATE TABLE `hh_social_media_user` (
 CREATE TABLE `hh_level` (
 	`id` int(11) NOT NULL,
 	`name` varchar(255),
-    `min_points` int(11),
+    `min_points` int(11) NOT NULL,
    	PRIMARY KEY (`id`),
   	UNIQUE KEY `name` (`name`),
   	UNIQUE KEY `min_points` (`min_points`)
@@ -87,7 +86,6 @@ CREATE TABLE `hh_level` (
 CREATE TABLE `hh_level_user` (
 	`lid` int(11) NOT NULL,
 	`uid` int(11) NOT NULL,
-    `min_points` int(11),
    	PRIMARY KEY (`lid`, `uid`),
 	CONSTRAINT `hh_level_user_ibfk_1` FOREIGN KEY (`lid`) REFERENCES `hh_level` (`id`),
 	CONSTRAINT `hh_lvel_user_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `hh_user` (`id`)
@@ -154,7 +152,7 @@ CREATE TABLE `hh_event` (
 CREATE TABLE `hh_event_date` (
 	`id` int(11) NOT NULL,
 	`eid` int(11) NOT NULL,
-	`date` date,
+	`date` datetime,
 	`start` time,
     `end` time,
     PRIMARY KEY (`id`, `eid`, `date`),
@@ -185,9 +183,9 @@ CREATE TABLE `hh_event_review` (
 	`rid` int(11) NOT NULL,
 	`approved` tinyint(1) NOT NULL,
     `comment` varchar(255),
-	PRIMARY KEY (`eid`, `rid`)
-    -- CONSTRAINT `hh_event_review_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `hh_event` (`id`),
-    -- CONSTRAINT `hh_event_review_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `hh_user` (`id`)
+	PRIMARY KEY (`eid`, `rid`),
+    CONSTRAINT `hh_event_review_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `hh_event` (`id`),
+    CONSTRAINT `hh_event_review_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `hh_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 
@@ -197,11 +195,9 @@ CREATE TABLE `hh_event_review` (
 CREATE TABLE `hh_event_register` (
 	`did` int(11) NOT NULL,
 	`uid` int(11) NOT NULL,
-   	`rid` int(11) NOT NULL,
-	PRIMARY KEY (`did`, `uid`, `rid`),
-    CONSTRAINT `hh_event_review_ibfk_1` FOREIGN KEY (`did`) REFERENCES `hh_event_date` (`id`),
-    CONSTRAINT `hh_event_review_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `hh_user` (`id`),
-	CONSTRAINT `hh_event_review_ibfk_3` FOREIGN KEY (`rid`) REFERENCES `hh_user` (`id`)
+	PRIMARY KEY (`did`, `uid`),
+    CONSTRAINT `hh_event_register_ibfk_1` FOREIGN KEY (`did`) REFERENCES `hh_event_date` (`id`),
+    CONSTRAINT `hh_event_register_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `hh_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 
@@ -209,11 +205,11 @@ CREATE TABLE `hh_event_register` (
 -- 
 
 CREATE TABLE `hh_tag_user` (
-	`tid` int(11) NOT NULL,
 	`uid` int(11) NOT NULL,
-	PRIMARY KEY (`tid`, `uid`),
-    CONSTRAINT `hh_tag_user_ibfk_1` FOREIGN KEY (`tid`) REFERENCES `hh_tag` (`id`),
-    CONSTRAINT `hh_tag_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `hh_user` (`id`)  
+	`tid` int(11) NOT NULL,
+	PRIMARY KEY (`uid`, `tid`),
+    CONSTRAINT `hh_tag_user_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `hh_user` (`id`),
+    CONSTRAINT `hh_tag_user_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `hh_tag` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 
@@ -221,9 +217,9 @@ CREATE TABLE `hh_tag_user` (
 -- 
 
 CREATE TABLE `hh_tag_event` (
-	`tid` int(11) NOT NULL,
 	`eid` int(11) NOT NULL,
-	PRIMARY KEY (`tid`, `eid`),
-    CONSTRAINT `hh_tag_event_ibfk_1` FOREIGN KEY (`tid`) REFERENCES `hh_tag` (`id`),
-    CONSTRAINT `hh_tag_event_ibfk_2` FOREIGN KEY (`eid`) REFERENCES `hh_event` (`id`)  
+	`tid` int(11) NOT NULL,
+	PRIMARY KEY (`eid`, `tid`),
+	CONSTRAINT `hh_tag_event_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `hh_event` (`id`),
+	CONSTRAINT `hh_tag_event_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `hh_tag` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
