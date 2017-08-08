@@ -14,6 +14,7 @@ app.route('/')
   .get(function(req, res) {
     // console.log(req.session);
     try {
+      // See if user is logged in.
       var user = req.session.passport.user;
       var context = {};
       context.user = user;
@@ -21,6 +22,7 @@ app.route('/')
       res.render('home', context);
     }
     catch (err) {
+      // User is not logged in.
       console.log("user not logged in.");
       res.status(200);
       res.render('homeGeneric');
@@ -32,7 +34,7 @@ app.route('/')
 // Handles Email, Facebook and Twitter login
 app.use('/login', auth);
 
-// Signup Method Selection Page 
+// Signup Method Selection Page
 app.use('/signup', signup);
 
 
