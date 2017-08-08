@@ -7,7 +7,7 @@ label
 #twitter-sign-in-button {
     width: 158px;
     height: 28px;
-    background-image: url(https://g.twimg.com/dev/sites/default/files/images_documentation/sign-in-with-twitter-gray.png);
+    background-image: url(http://flip2.engr.oregonstate.edu:16661/img/sign-in-with-twitter-gray.png);
     background-repeat: no-repeat;
 }
 
@@ -195,3 +195,4 @@ label
     }
   }
 }
+

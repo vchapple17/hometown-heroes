@@ -1,39 +1,21 @@
-var email_input = document.getElementById("signup_email");
-var username_input = document.getElementById("signup_username");
-var password_input = document.getElementById("signup_password");
-var submit_button = document.getElementById("signup_submit");
-var flip2 = "http://flip2.engr.oregonstate.edu:16661/signup/email/create";
 
-// import validator script
-var imported = document.createElement('script');
-imported.src = '/js/validator.min.js';
-document.head.appendChild(imported);
+var email_signup_button = document.getElementById("email_signup_button");
+var facebook_button = document.getElementById("facebook_button");
+var twitter_button = document.getElementById("twitter_button");
 
-function showObject(data_object)
+function EMlogin()
 {
-	console.log(data_object);
+	location.href="http://localhost:16661/signup/email/";
+}
+function FBlogin()
+{
+	location.href="http://localhost:16661/login/facebook";
+}
+function TWlogin()
+{
+	location.href="http://localhost:16661/login/twitter";
 }
 
-function send_data()
-{
-	var payload = {};
-	payload.email = email_input.value;
-	payload.username = username_input.value;
-	payload.password = password_input.value;
-	makePostReq(payload, flip2, showObject);
-
-    window.location.replace("email/success");
-}
-
-function validate()
-{
-	event.preventDefault();
-    if(validator.isEmail(email_input.value)) {
-        send_data();
-    }
-    else {
-        alert('Invalid Email Address');
-    }
-}
-
-submit_button.addEventListener("click", validate);
+email_signup_button.addEventListener("click", EMlogin);
+facebook_button.addEventListener("click", FBlogin);
+twitter_button.addEventListener("click", TWlogin);

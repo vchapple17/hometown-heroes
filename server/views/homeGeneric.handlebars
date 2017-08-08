@@ -1,22 +1,12 @@
-HOME PAGE Generic
-
-<br />
-<form action="/login/twitter">
-    <input type="submit" value="" id="twitter-sign-in-button"/>
-</form>
-
-<button id="fbbutton" class="loginBtn loginBtn--facebook">
-  Login with Facebook
-</button>
-
-<script>
-var fbbutton = document.getElementById("fbbutton");
-function redirection()
-{
-        location.href="/login/facebook";
-
-}
-fbbutton.addEventListener("click",redirection);
-</script>
-
+<h1> Hometown Heroes </h1>
+<div class="main_container">
+	<img src="/img/hometownhero.png"> </img>
+	<br/>
+	<br/>
+	<button id="login_button"> Log In </button>
+	<br/>
+	<br/>
+	<button id="signup_button"> Sign Up </button>
+</div>
+<script src="/js/homeGeneric.js"></script>
 
