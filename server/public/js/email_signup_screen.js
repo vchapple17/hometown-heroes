@@ -22,7 +22,7 @@ function send_data()
 	payload.password = password_input.value;
 	makePostReq(payload, localhosturl, showObject);
 
-    window.location.replace("email/success");
+    window.location.replace("./success");
 }
 
 function validate()
