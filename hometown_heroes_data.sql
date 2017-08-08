@@ -39,12 +39,12 @@ CREATE TABLE `hh_user` (
   	UNIQUE KEY `username` (`username`)
   ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
-INSERT INTO `hh_user` VALUES (1001,'email','password','Hockey_Bob','Hockey','Bob',8011234567,'123 Rink Ave','-','Hockey Town','WI',54321,1600,1,1,1),
-								(1002,'email','password','user2','Two','User',8011234568,'225 Some St','-','Corvalis','OR',97331,0,0,1,1),
-								(1003,'email','password','user3','Three','User',8011234568,'335 Some St','-','Corvalis','OR',97331,150,2,1,1),
-								(1004,'email','password','user4','Four','User',8011234568,'445 Some St','-','Corvalis','OR',97331,460,1,1,1),
-								(1005,'email','password','user5','Five','User',8011234568,'555 Some St','-','Corvalis','OR',97331,710,1,1,1);
-
+INSERT INTO `hh_user`(`id`,`email`,`password`,`username`,`lname`,`fname`,`mobile`,`street`,`city`,`state`,`zip`,`points`,`streak_len`,`multiplier`,`accepted`) 
+VALUES	(1001,'email','password','Hockey_Bob','Hockey','Bob',8011234567,'123 Rink Ave','Hockey Town','WI',54321,1600,1,1,1),
+		(1002,'email','password','user2','Two','User',8011234568,'225 Some St','Corvalis','OR',97331,0,0,1,1),
+		(1003,'email','password','user3','Three','User',8011234568,'335 Some St','Corvalis','OR',97331,150,2,1,1),
+		(1004,'email','password','user4','Four','User',8011234568,'445 Some St','Corvalis','OR',97331,460,1,1,1),
+		(1005,'email','password','user5','Five','User',8011234568,'555 Some St','Corvalis','OR',97331,710,1,1,1);
 
 --
 -- Table structure for table `hh_social_media`
@@ -59,8 +59,7 @@ CREATE TABLE `hh_social_media` (
 	UNIQUE KEY `url` (`url`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
-INSERT INTO `hh_social_media` VALUES	(81,'Twitter','https://twitter.com/login'),
-										(82,'Facebook','https://en-gb.facebook.com/login/');
+INSERT INTO `hh_social_media` VALUES	(81,'Twitter','https://twitter.com/login'),(82,'Facebook','https://en-gb.facebook.com/login/');
 
 --
 -- Table structure for table `hh_social_media_user`
@@ -76,13 +75,8 @@ CREATE TABLE `hh_social_media_user` (
 	CONSTRAINT `hh_social_media_user_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `hh_social_media` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `hh_social_media_user` VALUES	(1001,81,'access_token1'),
-											(1001,82,'access_token2'),
-											(1002,81,'access_token3'),
-											(1003,82,'access_token4'),
-											(1004,81,'access_token5'),
-											(1005,81,'access_token6'),
-											(1005,82,'access_token7');
+INSERT INTO `hh_social_media_user` VALUES	(1001,81,'access_token1'),(1001,82,'access_token2'),(1002,81,'access_token3'),(1003,82,'access_token4'),(1004,81,'access_token5'),(1005,81,'access_token6'),(1005,82,'access_token7');
+
 --
 -- Table structure for table `hh_level`
 -- 
@@ -150,8 +144,8 @@ CREATE TABLE `hh_tag` (
     UNIQUE KEY (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-INSERT INTO `hh_tag` VALUES 	(1,'Homelessness'),(2,'Hunger'),(3,'Advocacy'),(4,'Environment'),(5,'Children'),
-								(6,'Disabilities'),(7,'Veterans'),(8,'Sports'),(9,'Seniors'),(10,'Handywork');
+INSERT INTO `hh_tag` VALUES 	(1,'Homelessness'),(2,'Hunger'),(3,'Advocacy'),(4,'Environment'),(5,'Children'),(6,'Disabilities'),(7,'Veterans'),(8,'Sports'),(9,'Seniors'),(10,'Handywork'),(11,'tutoring');
+
 --
 -- Table structure for table `hh_event`
 -- 
@@ -172,8 +166,9 @@ CREATE TABLE `hh_event` (
 	CONSTRAINT `hh_event_ibfk_1` FOREIGN KEY (`oid`) REFERENCES `hh_user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-INSERT INTO `hh_event` VALUES	(502,'Tutoring at the Boys and Girls Club',1002,'another address','-','another town','state',54321,'Afterschool tutoring for grades 6-12 in Math and English',5,4),
-								(501,'Special Olympics Summer Games',1005,'another address','-','another town','state',54321,'Referees and fans needed for track and field, soccer, softball, and swimming',50,2);
+INSERT INTO `hh_event`(`id`,`name`,`oid`,`street`,`city`,`state`,`zip`,`description`,`num_volunteers`,`num_days`) 
+VALUES	(502,'Tutoring at the Boys and Girls Club',1002,'another address','another town','state',54321,'Afterschool tutoring for grades 6-12 in Math and English',5,4),
+		(501,'Special Olympics Summer Games',1005,'another address','another town','state',54321,'Referees and fans needed for track and field, soccer, softball, and swimming',50,2);
 
 --
 -- Table structure for table `hh_event_date`
@@ -182,14 +177,14 @@ INSERT INTO `hh_event` VALUES	(502,'Tutoring at the Boys and Girls Club',1002,'a
 CREATE TABLE `hh_event_date` (
 	`id` int(11) NOT NULL,
 	`eid` int(11) NOT NULL,
-	`date` date,
+	`date` datetime,
 	`start` time,
     `end` time,
     PRIMARY KEY (`id`, `eid`, `date`),
     CONSTRAINT `hh_event_date_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `hh_event` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
--- INSERT INTO 'hh_event_date' VALUES	(5021,502,'2017-09-18','16:00','18:00'),(5022,502,'2017-09-19','16:00','18:00'),(5023,502,'2017-09-20','16:00','18:00'),(5024,502,'2017-09-21','16:00','18:00'),(5011,501,'2017-06-02','09:00','17:00'),(5011,502,'2018-06-04','09:00','17:00');
+INSERT INTO `hh_event_date`(`id`,`eid`,`date`,`start`,`end`) VALUES	(5021,502,'2017-09-18','16:00','18:00'),(5022,502,'2017-09-19','16:00','18:00'),(5023,502,'2017-09-20','16:00','18:00'),(5024,502,'2017-09-21','16:00','18:00'),(5011,501,'2017-06-02','09:00','17:00'),(5012,501,'2018-06-04','09:00','17:00');
 
 --
 -- Table structure for table `hh_event_time`
@@ -206,7 +201,7 @@ CREATE TABLE `hh_event_time` (
     CONSTRAINT `hh_event_time_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `hh_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- INSERT INTO `hh_event_time` VALUES	(5011,1001,09:00,17:00),(5012,1001,09:00,12:00),(5012,1001,13:00,17:00),(5012,1005,09:00,15:00);
+INSERT INTO `hh_event_time`(`did`,`uid`,`start`,`end`) VALUES (5011,1001,'09:00','17:00'),(5012,1001,'09:00','12:00'),(5012,1001,'13:00','17:00'),(5012,1005,'09:00','15:00');
 
 --
 -- Table structure for table `hh_event_review`
@@ -237,36 +232,32 @@ CREATE TABLE `hh_event_register` (
     CONSTRAINT `hh_event_register_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `hh_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- INSERT INTO `hh_event_register` VALUES (5011,1001),(5012,1001),(5012,1005),(5021,1002),(5022,1003),(5023,1004),(5024,1005);
+INSERT INTO `hh_event_register` VALUES (5011,1001),(5012,1001),(5012,1005),(5021,1002),(5022,1003),(5023,1004),(5024,1005);
 
 -- 
 -- Table structure for table `hh_tag_user`
 -- 
 
--- CREATE TABLE `hh_tag_user` (
---	`uid` int(11) NOT NULL,
---	`tid` int(11) NOT NULL,
---	PRIMARY KEY (`uid`, `tid`),
---    CONSTRAINT `hh_tag_user_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `hh_user` (`id`),
---    CONSTRAINT `hh_tag_user_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `hh_tag` (`id`)
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `hh_tag_user` (
+	`uid` int(11) NOT NULL,
+	`tid` int(11) NOT NULL,
+	PRIMARY KEY (`uid`, `tid`),
+    CONSTRAINT `hh_tag_user_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `hh_user` (`id`),
+    CONSTRAINT `hh_tag_user_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `hh_tag` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- INSERT INTO `hh_tag_user` VALUES	(1001,10),(1001,9),(1001,6),(1001,1),(1001,11),(1001,4);
-									-- (1002,2),(1002,1),(1002,4),(1002,5),(1002,7),(1002,11),
-									-- (1003,11),(1003,10),(1003,9),(1003,8),(1003,7),(1003,6),
-									-- (1004,11),(1004,5),(1004,4),(1004,3),(1004,2),(1004,1),
-									-- (1005,11),(1005,9),(1005,8),(1005,7),(1005,6),(1005,5);
+INSERT INTO `hh_tag_user` VALUES	(1001,10),(1001,9),(1001,6),(1001,1),(1001,11),(1001,4),(1002,2),(1002,1),(1002,4),(1002,5),(1002,7),(1002,11),(1003,11),(1003,10),(1003,9),(1003,8),(1003,7),(1003,6),(1004,11),(1004,5),(1004,4),(1004,3),(1004,2),(1004,1),(1005,11),(1005,9),(1005,8),(1005,7),(1005,6),(1005,5);
 
 -- 
 -- Table structure for table `hh_tag_event`
 -- 
 
--- CREATE TABLE `hh_tag_event` (
---	`eid` int(11) NOT NULL,
---	`tid` int(11) NOT NULL,
---	PRIMARY KEY (`eid`, `tid`),
---	CONSTRAINT `hh_tag_event_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `hh_event` (`id`),
---	CONSTRAINT `hh_tag_event_ibfk_1` FOREIGN KEY (`tid`) REFERENCES `hh_tag` (`id`)
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `hh_tag_event` (
+	`eid` int(11) NOT NULL,
+	`tid` int(11) NOT NULL,
+	PRIMARY KEY (`eid`, `tid`),
+	CONSTRAINT `hh_tag_event_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `hh_event` (`id`),
+	CONSTRAINT `hh_tag_event_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `hh_tag` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- INSERT INTO `hh_tag_event` (501,5),(501,6),(501,8),(502,5),(502,11); 									
+INSERT INTO `hh_tag_event` VALUES (501,5),(501,6),(501,8),(502,5),(502,11);
