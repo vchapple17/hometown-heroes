@@ -8,17 +8,14 @@ var mysql = require('../../../db/dbcon.js');
 // Main Router
 var app = express.Router();
 
-// EMAIL SIGNUP PAGE
+// PROFILE EDIT PAGE
 app.get('/',function(req,res)
 {
-	res.render('email_signup_screen');
+	res.render('edit_profile_screen');
 });
 
-// Successful Account Creation Page
-app.get('/success', function(req, res) {
-    res.render('account_created');
-});
 
+/*
 // Add user account to database
 app.post('/create', function(req, res, next) {
     var data_object = req.body.data;
@@ -34,7 +31,7 @@ app.post('/create', function(req, res, next) {
         res.send(data_object);
     });
 });
-
+*/
 
 //************Generic Error Handling*******************************************
 app.use(function(req, res) {

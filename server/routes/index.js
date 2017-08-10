@@ -6,6 +6,7 @@ var app = express.Router();
 // Routers from files
 var auth = require('./auth/index');
 var signup = require('./signup/index');
+var profile = require('./profile/index');
 
 // var newSection = require('./folder/index.js') // add as we need
 
@@ -36,6 +37,9 @@ app.use('/login', auth);
 
 // Signup Method Selection Page
 app.use('/signup', signup);
+
+// Profile Page
+app.use('/profile', profile);
 
 
 //************ ECHO POST Information
