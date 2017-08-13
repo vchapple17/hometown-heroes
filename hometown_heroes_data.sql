@@ -59,7 +59,8 @@ CREATE TABLE `hh_social_media` (
 	UNIQUE KEY `url` (`url`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
-INSERT INTO `hh_social_media` VALUES	(81,'Twitter','https://twitter.com/login'),(82,'Facebook','https://en-gb.facebook.com/login/');
+INSERT INTO `hh_social_media` VALUES	(81,'Twitter','https://twitter.com/login'),
+					(82,'Facebook','https://en-gb.facebook.com/login/');
 
 --
 -- Table structure for table `hh_social_media_user`
@@ -68,9 +69,9 @@ INSERT INTO `hh_social_media` VALUES	(81,'Twitter','https://twitter.com/login'),
 CREATE TABLE `hh_social_media_user` (
     `uid` int(11) NOT NULL,
 	`sid` int(11) NOT NULL,
-	`access_token` varchar(255) NOT NULL,
+	`social_user_id` varchar(255) NOT NULL,
 	PRIMARY KEY (`uid`, `sid`),
-  	UNIQUE KEY `access_token` (`access_token`),
+  	UNIQUE KEY `social_user_id` (`social_user_id`),
 	CONSTRAINT `hh_social_media_user_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `hh_user` (`id`),
 	CONSTRAINT `hh_social_media_user_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `hh_social_media` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -84,7 +85,7 @@ INSERT INTO `hh_social_media_user` VALUES	(1001,81,'access_token1'),(1001,82,'ac
 CREATE TABLE `hh_level` (
 	`id` int(11) NOT NULL,
 	`name` varchar(255),
-    `min_points` int(11) NOT NULL,
+	`min_points` int(11) NOT NULL,
    	PRIMARY KEY (`id`),
   	UNIQUE KEY `name` (`name`),
   	UNIQUE KEY `min_points` (`min_points`)
@@ -144,7 +145,8 @@ CREATE TABLE `hh_tag` (
     UNIQUE KEY (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-INSERT INTO `hh_tag` VALUES 	(1,'Homelessness'),(2,'Hunger'),(3,'Advocacy'),(4,'Environment'),(5,'Children'),(6,'Disabilities'),(7,'Veterans'),(8,'Sports'),(9,'Seniors'),(10,'Handywork'),(11,'tutoring');
+INSERT INTO `hh_tag` VALUES 	(1,'Homelessness'),(2,'Hunger'),(3,'Advocacy'),(4,'Environment'),(5,'Children'),(6,'Disabilities'),
+				(7,'Veterans'),(8,'Sports'),(9,'Seniors'),(10,'Handywork'),(11,'tutoring');
 
 --
 -- Table structure for table `hh_event`
@@ -168,7 +170,7 @@ CREATE TABLE `hh_event` (
 
 INSERT INTO `hh_event`(`id`,`name`,`oid`,`street`,`city`,`state`,`zip`,`description`,`num_volunteers`,`num_days`) 
 VALUES	(502,'Tutoring at the Boys and Girls Club',1002,'another address','another town','state',54321,'Afterschool tutoring for grades 6-12 in Math and English',5,4),
-		(501,'Special Olympics Summer Games',1005,'another address','another town','state',54321,'Referees and fans needed for track and field, soccer, softball, and swimming',50,2);
+	(501,'Special Olympics Summer Games',1005,'another address','another town','state',54321,'Referees and fans needed for track and field, soccer, softball, and swimming',50,2);
 
 --
 -- Table structure for table `hh_event_date`
@@ -184,7 +186,7 @@ CREATE TABLE `hh_event_date` (
     CONSTRAINT `hh_event_date_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `hh_event` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-INSERT INTO `hh_event_date`(`id`,`eid`,`date`,`start`,`end`) VALUES	(5021,502,'2017-09-18','16:00','18:00'),(5022,502,'2017-09-19','16:00','18:00'),(5023,502,'2017-09-20','16:00','18:00'),(5024,502,'2017-09-21','16:00','18:00'),(5011,501,'2017-06-02','09:00','17:00'),(5012,501,'2018-06-04','09:00','17:00');
+INSERT INTO `hh_event_date`(`id`,`eid`,`date`,`start`,`end`) VALUES (5021,502,'2017-09-18','16:00','18:00'),(5022,502,'2017-09-19','16:00','18:00'),(5023,502,'2017-09-20','16:00','18:00'),(5024,502,'2017-09-21','16:00','18:00'),(5011,501,'2017-06-02','09:00','17:00'),(5012,501,'2018-06-04','09:00','17:00');
 
 --
 -- Table structure for table `hh_event_time`
@@ -246,7 +248,11 @@ CREATE TABLE `hh_tag_user` (
     CONSTRAINT `hh_tag_user_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `hh_tag` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `hh_tag_user` VALUES	(1001,10),(1001,9),(1001,6),(1001,1),(1001,11),(1001,4),(1002,2),(1002,1),(1002,4),(1002,5),(1002,7),(1002,11),(1003,11),(1003,10),(1003,9),(1003,8),(1003,7),(1003,6),(1004,11),(1004,5),(1004,4),(1004,3),(1004,2),(1004,1),(1005,11),(1005,9),(1005,8),(1005,7),(1005,6),(1005,5);
+INSERT INTO `hh_tag_user` VALUES	(1001,10),(1001,9),(1001,6),(1001,1),(1001,11),(1001,4),
+					(1002,2),(1002,1),(1002,4),(1002,5),(1002,7),(1002,11),
+					(1003,11),(1003,10),(1003,9),(1003,8),(1003,7),(1003,6),
+					(1004,11),(1004,5),(1004,4),(1004,3),(1004,2),(1004,1),
+					(1005,11),(1005,9),(1005,8),(1005,7),(1005,6),(1005,5);
 
 -- 
 -- Table structure for table `hh_tag_event`
