@@ -20,21 +20,21 @@ DROP TABLE IF EXISTS `hh_user`;
 
 CREATE TABLE `hh_user` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`email` varchar(255) NOT NULL,
-	`password` varchar(255) NOT NULL,
-	`username` varchar(255) NOT NULL,
-	`lname` varchar(255) NOT NULL,
-	`fname` varchar(255) NOT NULL,
-	`mobile` int(10) NOT NULL,
-	`street` varchar(255) NOT NULL,
+	`email` varchar(255),
+	`password` varchar(255),
+	`username` varchar(255),
+	`lname` varchar(255),
+	`fname` varchar(255),
+	`mobile` int(10),
+	`street` varchar(255),
 	`street_2` varchar(255),
-	`city` varchar(255) NOT NULL,
-	`state` varchar(255) NOT NULL,
-	`zip` int(5) NOT NULL,
+	`city` varchar(255),
+	`state` varchar(255),
+	`zip` int(5),
 	`points` int(11) DEFAULT '0',
 	`streak_len` int(11) DEFAULT '0',
 	`multiplier` int(11) DEFAULT '0',
-	`accepted` tinyint(1) NOT NULL DEFAULT '0', 
+	`accepted` enum('yes','no') NOT NULL DEFAULT 'no', 
 	PRIMARY KEY (`id`),
   	UNIQUE KEY `username` (`username`)
   ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
@@ -45,7 +45,7 @@ CREATE TABLE `hh_user` (
 
 CREATE TABLE `hh_social_media` (
 	`id` int(11) NOT NULL,
-	`service` varchar(255) NOT NULL,
+	`service` enum('facebook','twitter') NOT NULL,
 	`url` varchar(255) NOT NULL,
 	PRIMARY KEY (`id`),
   	UNIQUE KEY `service` (`service`),
@@ -181,7 +181,7 @@ CREATE TABLE `hh_event_time` (
 CREATE TABLE `hh_event_review` (
 	`eid` int(11) NOT NULL,
 	`rid` int(11) NOT NULL,
-	`approved` tinyint(1) NOT NULL,
+	`approved` enum('yes','no') NOT NULL DEFAUT 'no',
 	`comment` varchar(255),
 	PRIMARY KEY (`eid`, `rid`),
 	CONSTRAINT `hh_event_review_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `hh_event` (`id`),
