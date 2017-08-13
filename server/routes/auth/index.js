@@ -31,6 +31,16 @@ app.get('/twitter/callback',
   })
 );
 
+// EMAIL LOGIN CALLBACK
+app.post('/',
+	passport.authenticate('local',{
+		failureRedirect: '/login',
+		successRedirect: '/profile',
+        session: false
+  })
+);
+
+
 //************Generic Error Handling*******************************************
 app.use(function(req, res) {
   res.status(404);

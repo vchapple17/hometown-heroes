@@ -1,5 +1,6 @@
 var facebook = require('./facebook');
 var twitter = require('./twitter');
+var local = require('./local');
 // REFERENCE:
 // https://github.com/tutsplus/passport-social/blob/master/passport/init.js
 
@@ -27,4 +28,5 @@ module.exports = function(passport){
     // Setting up Passport Strategies for Facebook and Twitter
     facebook(passport);
     twitter(passport);
+    local(passport);
 }
