@@ -59,9 +59,9 @@ CREATE TABLE `hh_social_media` (
 CREATE TABLE `hh_social_media_user` (
 	`uid` int(11) NOT NULL,
 	`sid` int(11) NOT NULL,
-	`access_token` varchar(255) NOT NULL,
+	`social_user_id` varchar(255) NOT NULL,
 	PRIMARY KEY (`uid`, `sid`),
-  	UNIQUE KEY `access_token` (`access_token`),
+  	UNIQUE KEY `social_user_id` (`social_user_id`),
 	CONSTRAINT `hh_social_media_user_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `hh_user` (`id`),
 	CONSTRAINT `hh_social_media_user_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `hh_social_media` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
