@@ -36,7 +36,6 @@ app.post('/',
 	passport.authenticate('local',{
 		failureRedirect: '/login',
 		successRedirect: '/profile',
-        session: false
   })
 );
 

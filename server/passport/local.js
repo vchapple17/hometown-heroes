@@ -8,6 +8,19 @@ var LocalStrategy = require('passport-local').Strategy;
 var mysql = require('../db/dbcon.js');
 
 module.exports = function(passport){
+    // required for persistent login sessions
+    // used to serialize the user for the session
+    passport.serializeUser(function(user, done) {
+        done(null, user.username);
+    });
+
+    // used to deserialize the user
+    passport.deserializeUser(function(username, done) {
+        mysql.pool.query("SELECT * FROM hh_user WHERE username = ? ",[username], function(err, rows){
+            done(err, rows[0]);
+        });
+    });
+
   // From passportjs documentation
   passport.use(
     new LocalStrategy({usernameField: 'username', passwordField: 'password', passReqToCallback: true},
