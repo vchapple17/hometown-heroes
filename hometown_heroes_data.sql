@@ -34,16 +34,16 @@ CREATE TABLE `hh_user` (
 	`points` int(11) DEFAULT '0',
 	`streak_len` int(11) DEFAULT '0',
 	`multiplier` int(11) DEFAULT '0',
-	`accepted` tinyint(1) NOT NULL DEFAULT '0', 
+	`accepted` tinyint(1) NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`),
   	UNIQUE KEY `username` (`username`)
   ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
-INSERT INTO `hh_user` VALUES (1001,'email','password','Hockey_Bob','Hockey','Bob',8011234567,'123 Rink Ave','-','Hockey Town','WI',54321,1600,1,1,1),
-								(1002,'email','password','user2','Two','User',8011234568,'225 Some St','-','Corvalis','OR',97331,0,0,1,1),
-								(1003,'email','password','user3','Three','User',8011234568,'335 Some St','-','Corvalis','OR',97331,150,2,1,1),
-								(1004,'email','password','user4','Four','User',8011234568,'445 Some St','-','Corvalis','OR',97331,460,1,1,1),
-								(1005,'email','password','user5','Five','User',8011234568,'555 Some St','-','Corvalis','OR',97331,710,1,1,1);
+INSERT INTO `hh_user` VALUES (1001,'email','password','Hockey_Bob','Hockey','Bob',NULL,'123 Rink Ave','-','Hockey Town','WI',54321,1600,1,1,1),
+								(1002,'email','password','user2','Two','User',NULL,'225 Some St','-','Corvalis','OR',97331,0,0,1,1),
+								(1003,'email','password','user3','Three','User',NULL,'335 Some St','-','Corvalis','OR',97331,150,2,1,1),
+								(1004,'email','password','user4','Four','User',NULL,'445 Some St','-','Corvalis','OR',97331,460,1,1,1),
+								(1005,'email','password','user5','Five','User',NULL,'555 Some St','-','Corvalis','OR',97331,710,1,1,1);
 
 
 --
@@ -85,7 +85,7 @@ INSERT INTO `hh_social_media_user` VALUES	(1001,81,'access_token1'),
 											(1005,82,'access_token7');
 --
 -- Table structure for table `hh_level`
--- 
+--
 
 CREATE TABLE `hh_level` (
 	`id` int(11) NOT NULL,
@@ -100,7 +100,7 @@ INSERT INTO `hh_level` VALUES (1,NULL,0),(2,NULL,60),(3,NULL,90),(4,NULL,135),(5
 
 --
 -- Table structure for table `hh_level_user`
--- 
+--
 
 CREATE TABLE `hh_level_user` (
 	`lid` int(11) NOT NULL,
@@ -114,7 +114,7 @@ INSERT INTO `hh_level_user` VALUES (10,1001),(1,1002),(4,1003),(7,1004),(8,1005)
 
 --
 -- Table structure for table `hh_role`
--- 
+--
 
 CREATE TABLE `hh_role` (
 	`id` int(11) NOT NULL,
@@ -127,7 +127,7 @@ INSERT INTO `hh_role` VALUES (1,'administrator'),(2,'reviewer'),(3,'user');
 
 --
 -- Table structure for table `hh_role_user`
--- 
+--
 
 CREATE TABLE `hh_role_user` (
 	`rid` int(11) NOT NULL,
@@ -139,9 +139,9 @@ CREATE TABLE `hh_role_user` (
 
 INSERT INTO `hh_role_user` VALUES (1,1001),(3,1002),(3,1003),(2,1004),(2,1005);
 
--- 
+--
 -- Table structure for table `hh_tag`
--- 
+--
 
 CREATE TABLE `hh_tag` (
 	`id` int(11) NOT NULL,
@@ -154,7 +154,7 @@ INSERT INTO `hh_tag` VALUES 	(1,'Homelessness'),(2,'Hunger'),(3,'Advocacy'),(4,'
 								(6,'Disabilities'),(7,'Veterans'),(8,'Sports'),(9,'Seniors'),(10,'Handywork');
 --
 -- Table structure for table `hh_event`
--- 
+--
 
 CREATE TABLE `hh_event` (
 	`id` int(11) NOT NULL,
@@ -167,7 +167,7 @@ CREATE TABLE `hh_event` (
     `zip` int(5) NOT NULL,
     `description` varchar(255),
     `num_volunteers` int(11),
-    `num_days` int(11), 
+    `num_days` int(11),
     PRIMARY KEY (`id`, `name`),
 	CONSTRAINT `hh_event_ibfk_1` FOREIGN KEY (`oid`) REFERENCES `hh_user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
@@ -177,7 +177,7 @@ INSERT INTO `hh_event` VALUES	(502,'Tutoring at the Boys and Girls Club',1002,'a
 
 --
 -- Table structure for table `hh_event_date`
--- 
+--
 
 CREATE TABLE `hh_event_date` (
 	`id` int(11) NOT NULL,
@@ -194,12 +194,12 @@ CREATE TABLE `hh_event_date` (
 --
 -- Table structure for table `hh_event_time`
 -- Allows for more than one start/end time per day
--- 
+--
 
 CREATE TABLE `hh_event_time` (
 	`did` int(11) NOT NULL,
 	`uid` int(11) NOT NULL,
-	`start` time NOT NULL, 
+	`start` time NOT NULL,
     `end` time,
     PRIMARY KEY (`did`, `uid`, `start`),
     CONSTRAINT `hh_event_time_ibfk_1` FOREIGN KEY (`did`) REFERENCES `hh_event_date` (`id`),
@@ -210,7 +210,7 @@ CREATE TABLE `hh_event_time` (
 
 --
 -- Table structure for table `hh_event_review`
--- 
+--
 
 CREATE TABLE `hh_event_review` (
 	`eid` int(11) NOT NULL,
@@ -225,9 +225,9 @@ CREATE TABLE `hh_event_review` (
 
 INSERT INTO `hh_event_review` VALUES (501,1001,1,'approved'),(502,1001,1,'approved');
 
--- 
+--
 -- Table structure for table `hh_event_register`
--- 
+--
 
 CREATE TABLE `hh_event_register` (
 	`did` int(11) NOT NULL,
@@ -239,9 +239,9 @@ CREATE TABLE `hh_event_register` (
 
 -- INSERT INTO `hh_event_register` VALUES (5011,1001),(5012,1001),(5012,1005),(5021,1002),(5022,1003),(5023,1004),(5024,1005);
 
--- 
+--
 -- Table structure for table `hh_tag_user`
--- 
+--
 
 -- CREATE TABLE `hh_tag_user` (
 --	`uid` int(11) NOT NULL,
@@ -257,9 +257,9 @@ CREATE TABLE `hh_event_register` (
 									-- (1004,11),(1004,5),(1004,4),(1004,3),(1004,2),(1004,1),
 									-- (1005,11),(1005,9),(1005,8),(1005,7),(1005,6),(1005,5);
 
--- 
+--
 -- Table structure for table `hh_tag_event`
--- 
+--
 
 -- CREATE TABLE `hh_tag_event` (
 --	`eid` int(11) NOT NULL,
@@ -269,4 +269,4 @@ CREATE TABLE `hh_event_register` (
 --	CONSTRAINT `hh_tag_event_ibfk_1` FOREIGN KEY (`tid`) REFERENCES `hh_tag` (`id`)
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- INSERT INTO `hh_tag_event` (501,5),(501,6),(501,8),(502,5),(502,11); 									
+-- INSERT INTO `hh_tag_event` (501,5),(501,6),(501,8),(502,5),(502,11);
