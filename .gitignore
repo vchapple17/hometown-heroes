@@ -3,6 +3,7 @@
 # dependencies
 
 dbcon.js
+dbcon2.js
 /node_modules
 
 # testing

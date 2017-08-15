@@ -5,7 +5,7 @@ var local = require('./local');
 // https://github.com/tutsplus/passport-social/blob/master/passport/init.js
 
 // TEMP Database CALLBACK
-var User = require('../db/fakeDBquery');
+var User = require('../db/UserAPI');
 
 module.exports = function(passport){
 
@@ -18,11 +18,7 @@ module.exports = function(passport){
 
     passport.deserializeUser(function(id, done) {
       // console.log('deserializing user:',id);
-      User.findById(id, function(err, user) {
-        // console.log('deserializing user:',user);
-        done(err, user);
-      });
-
+      done(null, id);
     });
 
     // Setting up Passport Strategies for Facebook and Twitter

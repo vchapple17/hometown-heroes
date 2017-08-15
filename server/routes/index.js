@@ -13,7 +13,7 @@ var profile = require('./profile/index');
 // HOME PAGE
 app.route('/')
   .get(function(req, res) {
-    // console.log(req.session);
+    //console.log(req.session);
     try {
       // See if user is logged in.
       var user = req.session.passport.user;
