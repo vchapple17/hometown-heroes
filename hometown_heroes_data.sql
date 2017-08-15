@@ -50,7 +50,7 @@ INSERT INTO `hh_user` VALUES (1001,'email','password','Hockey_Bob','Hockey','Bob
 -- Table structure for table `hh_social_media`
 --
 
-CREATE TABLE `hh_social_media` (
+	CREATE TABLE `hh_social_media` (
 	`id` int(11) NOT NULL,
 	`service` varchar(255) NOT NULL,
 	`url` varchar(255) NOT NULL,
@@ -66,23 +66,23 @@ INSERT INTO `hh_social_media` VALUES	(81,'Twitter','https://twitter.com/login'),
 -- Table structure for table `hh_social_media_user`
 --
 
-CREATE TABLE `hh_social_media_user` (
+	CREATE TABLE `hh_social_media_user` (
     `uid` int(11) NOT NULL,
 	`sid` int(11) NOT NULL,
-	`access_token` varchar(255) NOT NULL,
+	`access_token` varchar(255) NULL DEFAULT NULL,
+	`user_social_id` varchar(255) NOT NULL,
 	PRIMARY KEY (`uid`, `sid`),
-  	UNIQUE KEY `access_token` (`access_token`),
 	CONSTRAINT `hh_social_media_user_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `hh_user` (`id`),
 	CONSTRAINT `hh_social_media_user_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `hh_social_media` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `hh_social_media_user` VALUES	(1001,81,'access_token1'),
-											(1001,82,'access_token2'),
-											(1002,81,'access_token3'),
-											(1003,82,'access_token4'),
-											(1004,81,'access_token5'),
-											(1005,81,'access_token6'),
-											(1005,82,'access_token7');
+INSERT INTO `hh_social_media_user` (uid, sid, user_social_id) VALUES	(1001,81,'123456789'),
+(1001,82,'234567890'),
+(1002,81,'123'),
+(1003,82,'1234567'),
+(1004,81,'765438'),
+(1005,81,'12345'),
+(1005,82,'12345678');
 --
 -- Table structure for table `hh_level`
 --
