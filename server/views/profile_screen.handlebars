@@ -1,2 +1,60 @@
-<h1> Show Profile Info Here </h1>
+<h1> Account Profile</h1>
 <img src="/img/hometownhero.png"> </img>
+
+<p>
+<table>
+    <tr>
+        <td>First Name:</td>
+        <td>{{user.fname}}</td>
+    </tr>
+    <tr>
+        <td>Last Name:</td>
+        <td>{{user.lname}}</td>
+    </tr>
+    <tr>
+        <td>Mobile:</td>
+        <td>{{user.mobile}}</td>
+    </tr>
+    <tr>
+        <td>Street Address:</td>
+        <td>{{user.street}}</td>
+    </tr>
+    {{#if user.street_2}}
+    <tr>
+        <td></td>
+        <td>{{user.street_2}}</td>
+    </tr>
+    {{/if}}
+    <tr>
+        <td>City:</td>
+        <td>{{user.city}}</td>
+    </tr>
+    <tr>
+        <td>State:</td>
+        <td>{{user.state}}</td>
+    </tr>
+    <tr>
+        <td>Zip:</td>
+        <td>{{user.zip}}</td>
+    </tr>
+</table>
+</p>
+<p>
+<table>
+    <tr>
+        <td>Interests:</td>
+    </tr>
+</table>
+</p>
+
+<p>
+<table>
+    <tr>
+        <td>Skills:</td>
+    </tr>
+</table>
+</p>
+
+<p>
+<a href="./profile/edit">Edit Profile</a>
+</p>

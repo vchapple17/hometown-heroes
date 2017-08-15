@@ -11,7 +11,7 @@ var app = express.Router();
 // PROFILE EDIT PAGE
 app.get('/',function(req,res)
 {
-	res.render('edit_profile_screen');
+	res.render('edit_profile_screen', {user: req.user});
 });
 
 
