@@ -12,7 +12,7 @@ var edit_profile = require('./edit/index');
 // PROFILE PAGE
 app.get('/',function(req,res)
 {
-	res.render('profile_screen');
+	res.render('profile_screen', {user: req.user});
 });
 
 // Profile Modification Page

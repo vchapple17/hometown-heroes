@@ -1,6 +1,7 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
+
 dbcon.js
 /node_modules
 
@@ -67,3 +68,5 @@ credentials.js
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+server/db/dbcon.js

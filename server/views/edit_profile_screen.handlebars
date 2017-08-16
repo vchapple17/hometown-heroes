@@ -3,52 +3,57 @@
 	<br/>
 	<br/>
  <form>
-    
+
     <fieldset>
         <legend>Personal Info</legend>
-        <p><label>First Name:             
-            <input type="text" id="first_name" size="30" maxlength="100">
+            <input type="hidden" id="user_id" value={{user.id}}>
+        <p><label>First Name:
+            <input type="text" id="first_name" size="30" maxlength="100" value={{user.fname}}>
         </label></p>
-        <p><label>Last Name:             
-            <input type="text" id="last_name" size="30" maxlength="100">
+        <p><label>Last Name:
+            <input type="text" id="last_name" size="30" maxlength="100" value={{user.lname}}>
         </label></p>
-        <p><label>Mobile #:
-            <input type="password" id="mobile" size="30" maxlength="100">
+        <p><label>Email:
+            <input type="text" id="email" size="30" maxlength="100" value={{user.email}}>
+        </label></p>
+	<p><label>Mobile #:
+            <input type="text" id="mobile" size="30" maxlength="100" value={{user.mobile}}>
         </label></p>
         <p><label>Street:
-            <input type="password" id="street1" size="30" maxlength="100">
+            <input type="text" id="street1" size="30" maxlength="100" value={{user.street}}>
         </label></p>
         <p><label>Street 2:
-            <input type="password" id="street2" size="30" maxlength="100">
+            <input type="text" id="street2" size="30" maxlength="100" value={{user.street_2}}>
         </label></p>
         <p><label>City:
-            <input type="password" id="city" size="30" maxlength="100">
+            <input type="text" id="city" size="30" maxlength="100" value={{user.city}}>
         </label></p>
         <p><label>State:
-            <input type="password" id="state" size="30" maxlength="100">
+            <input type="text" id="state" size="30" maxlength="100" value={{user.state}}>
         </label></p>
         <p><label>Zip:
-            <input type="password" id="zip" size="30" maxlength="100">
+            <input type="text" id="zip" size="30" maxlength="100" value={{user.zip}}>
         </label></p>
 
         </fieldset>
-        
+
     <fieldset>
         <legend>Interests</legend>
-        <label>Chores            
+        <label>Chores
             <input type="checkbox" id="chores_check" size="30" maxlength="100">
         </label>&ensp;
-         <label>Tutoring            
+         <label>Tutoring
             <input type="checkbox" id="tutor_interest_check" size="30" maxlength="100">
         </label>&ensp;
-        <label>Animals            
+        <label>Animals
             <input type="checkbox" id="animals_check" size="30" maxlength="100">
         </label>&ensp;
-        
+
         </fieldset>
 
     <fieldset>
         <legend>Skills</legend>
+
         <label>Handy            
             <input type="checkbox" id="handy_check" size="30" maxlength="100">
         </label>&ensp;
@@ -57,12 +62,11 @@
         </label>&ensp;
         <label>Child Care            
             <input type="checkbox" id="ccare_check" size="30" maxlength="100">
-        </label>&ensp;
-        
-        </fieldset>        
+
+        </fieldset>
     <br/><button id="edit_profile_submit">Submit</button>
-    
-    
-</form>   
+
+
+</form>
 <script src="/js/ajaxUtility.js"></script>
 // <script src="/js/edit_profile_screen.js"></script>
