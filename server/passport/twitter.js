@@ -5,7 +5,7 @@ var configAuth = require('../config/auth');
 // https://github.com/tutsplus/passport-social/blob/master/passport/twitter.js
 
 // // TEMP DB CALLBACK
-var User = require('../db/fakeDBquery');
+var User = require('../db/UserAPI.js');
 
 module.exports = function(passport){
   // From passportjs documentation
@@ -15,10 +15,12 @@ module.exports = function(passport){
   	callbackURL: configAuth.twitterAuth.callbackURL
   	},
   	function(token, tokenSecret, profile, done) {
-      User.findOrCreate({twitterId: profile.id}, function(err, user) {
-        if (err) { return done(err); }
+      User.findOrCreateBySocialUserId({ twitterId: profile.id }, function(err, user) {
+  			if(err) { return done(err);}
+        // console.log("User: ");
+        // console.log(user);
         done(null, user);
-      });
+  		})
     }
   ));
 }
