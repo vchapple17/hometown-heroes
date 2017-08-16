@@ -1,4 +1,4 @@
-var username_input = document.getElementById("user_input");
+var user_input = document.getElementById("user_input");
 var password_input = document.getElementById("password_input");
 var submit_button = document.getElementById("submit_button");
 var localhosturl = "./";
