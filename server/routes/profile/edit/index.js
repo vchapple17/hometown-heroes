@@ -33,6 +33,27 @@ app.post('/create', function(req, res, next) {
 });
 */
 
+// Edit user profile in database
+app.post('/edit', function(req, res, next) {
+    var data_object = req.body.data;
+    var user_id = data_object['user_id'];
+    var mobile = data_object['mobile'];
+    var street1 = data_object['street1'];
+    var street2 = data_object['street2'];
+    var city = data_object['city'];
+    var state = data_object['state'];
+    var zip = data_object['zip'];
+
+    mysql.pool.query("UPDATE hh_user SET email = ?, mobile = ?, street = ?, street_2 = ?, city = ?, state = ?, zip = ? WHERE id = ?", 
+        [email, mobile, street1, street2, city, state, zip, user_id], function(err, result) {
+        if(err) {
+            next(err)
+            return;
+        }
+        res.send(data_object);
+    });
+});
+
 //************Generic Error Handling*******************************************
 app.use(function(req, res) {
   res.status(404);
